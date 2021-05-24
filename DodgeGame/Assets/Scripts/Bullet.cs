@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 8f;
+    public int damage = 30;
     private Rigidbody bulletRigidbody;
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,8 @@ public class Bullet : MonoBehaviour
 
             if(playerController != null)
             {
-                playerController.Die();
+                Destroy(gameObject);
+                playerController.GetDamage(damage);
             }
         }
     }
