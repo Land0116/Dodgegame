@@ -471,6 +471,8 @@ MonoBehaviour:
   level: {fileID: 1986192503}
   bullerSpawnerPrefab: {fileID: 744756929929238752, guid: 5bdb20535c4e91c438f5c62c8282d58e,
     type: 3}
+  itemPrefab: {fileID: 4528020151220896358, guid: 66f61ea09d4bafe45b8469bb5c809195,
+    type: 3}
   bulletSpawners:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}

@@ -38,6 +38,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void GetHeal(int _heal)
+    {
+        hp += _heal;
+        if (hp > 100)
+        {
+            hp = 100;
+        }
+        hpbar.SetHP(hp);
+    }
+
     void Die()
     {
         gameObject.SetActive(false);
