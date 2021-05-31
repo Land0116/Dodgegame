@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     public int hp = 100;
 
     public HPbar hpbar;
+
+    public float spawnRate = 0.2f;
+    public float timeAfterSpawn;
+    public GameObject playerBulletPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +30,13 @@ public class PlayerController : MonoBehaviour
 
         Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);
         playerRigidbody.velocity = newVelocity;
+
+        timeAfterSpawn += Time.deltaTime;
+        if(Input.GetButton("Fire1") && timeAfterSpawn >= spawnRate)
+        {
+            timeAfterSpawn = 0;
+            GameObject bullt = Instantiate(playerBulletPrefab, transform.position, transform.rotation);
+        }
     }
 
     public void GetDamage(int _damage)

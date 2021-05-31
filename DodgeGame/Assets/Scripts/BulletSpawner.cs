@@ -11,6 +11,8 @@ public class BulletSpawner : MonoBehaviour
     private Transform target;
     private float spawnRate;
     private float timeAfterSpawn;
+
+    public int hp = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +36,16 @@ public class BulletSpawner : MonoBehaviour
 
             spawnRate = Random.Range(spawnRateMin, spawnRateMax);
         }
+    }
+
+    public void GetDamage(int damage)
+    {
+        hp -= damage;
+
+        if(hp <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+
     }
 }
