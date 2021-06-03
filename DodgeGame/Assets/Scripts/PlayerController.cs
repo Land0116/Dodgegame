@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 8f;
     public int hp = 100;
 
+    public Transform tr;
+
     public HPbar hpbar;
 
     public float spawnRate = 0.2f;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+        tr = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -30,6 +33,17 @@ public class PlayerController : MonoBehaviour
 
         Vector3 newVelocity = new Vector3(xSpeed, 0f, zSpeed);
         playerRigidbody.velocity = newVelocity;
+
+        RaycastHit hit = new RaycastHit();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if(Physics.Raycast(ray.origin, ray.direction, out hit))
+        {
+            Vector3 projectedPos = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            Vector3 currentPos = transform.position;
+            Vector3 rotation = projectedPos - currentPos;
+            tr.forward = rotation;
+        }
 
         timeAfterSpawn += Time.deltaTime;
         if(Input.GetButton("Fire1") && timeAfterSpawn >= spawnRate)

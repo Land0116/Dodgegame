@@ -20,13 +20,13 @@ public class PlayerBullet : MonoBehaviour
     {
         if (other.tag == "Bullet")
         {
-            PlayerController playerController = other.GetComponent<PlayerController>();
+            Bullet bullet = other.GetComponent<Bullet>();
 
-            if (playerController != null)
+            if (bullet != null)
             {
-                Destroy(gameObject);
-                playerController.GetDamage(damage);
+                Destroy(bullet.gameObject);
             }
+            Destroy(gameObject);
         }
 
         else if (other.tag == "BulletSpawner")
