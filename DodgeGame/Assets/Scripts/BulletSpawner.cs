@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BulletSpawner : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public float spawnRateMin = 0.5f;
-    public float spawnRateMax = 3f;
+    public float spawnRateMax = 0.5f;
 
     public HPbar hpbar;
     public int hp = 100;
@@ -14,12 +15,18 @@ public class BulletSpawner : MonoBehaviour
     private Transform target;
     private float spawnRate;
     private float timeAfterSpawn;
+
+    public bool isMoving = false;
+    private NavMeshAgent nvAgent;
+
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(monsterAI());
         timeAfterSpawn = 0f;
         spawnRate = Random.Range(spawnRateMin, spawnRateMax);
         target = FindObjectOfType<PlayerController>().transform;
+        nvAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -48,5 +55,24 @@ public class BulletSpawner : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+    }
+
+
+    IEnumerator monsterAI()
+    {
+        while(hp > 0)
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            if(isMoving)
+            {
+                nvAgent.destination = target.position;
+                nvAgent.isStopped = false;
+            }
+            else
+            {
+                nvAgent.isStopped = true;
+            }
+        }
     }
 }
